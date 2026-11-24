@@ -27,3 +27,22 @@ SELECT DISTINCT -- remove duplicates
         WHEN country = 15 THEN 'United States'
         ELSE 'Unknown'
     END AS country,
+    
+    -- add franchise status
+    CASE
+        WHEN franchise_flag = 0 THEN 'Company'
+        WHEN franchise_flag = 1 THEN 'Franchise'
+        ELSE 'Unknown'
+        END AS franchise_status,
+    
+    year,
+    
+    -- replace nulls
+    COALESCE(make, 'Custom') AS make,
+    
+    -- trim blank space
+    TRIM(model) AS model,
+    
+    opening_date
+
+FROM tacos.raw.trucks
